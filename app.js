@@ -12,6 +12,7 @@ dotenv.config();
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const passport = require("passport");
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use(
     },
   })
 );
+app.use(passport.session());
 
 app.use(logger("dev"));
 app.use(express.json());
