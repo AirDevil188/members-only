@@ -16,4 +16,6 @@ router.get("/", function (req, res, next) {
 
 router.get("/sign-up", membersController.members_only_sign_up_get);
 
+router.post("/sign-up", membersController.members_only_sign_up_post);
+
 module.exports = router;
