@@ -1,0 +1,22 @@
+extends layout
+
+block content 
+
+    h3 Sing up to our Member Page
+
+    section.sign-up-section
+        div.form-container
+            form(method="POST")
+                div.form-group
+                    label(for="username") #[strong Username: ]
+                    input(type="text" id="username", name="username")
+
+                div.form-group
+                    label(for="username_password") #[strong Password: ]
+                    input(type="password" id="username_password", name="username_password" autocomplete="on")
+
+                div.form-group
+                    label(for="username_confirm_password") #[strong Confirm Password: ]
+                    input(type="password" id="username_confirm_password", name="username_confirm_password") 
+
+                button.btn-submit(type="submit") Submit
