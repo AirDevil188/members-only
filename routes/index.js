@@ -10,9 +10,18 @@ router.get("/", function (req, res, next) {
   if (req.session.viewCount) {
     req.session.viewCount++;
   } else req.session.viewCount = 1;
-  console.log(req.session);
-  res.render("index", { title: "Members Only", user: req.user });
-  console.log(req.user);
+  if (req.user) {
+    console.log(req.session);
+    res.render("index", {
+      title: "Members Only - Homepage",
+      user: req.user,
+    });
+    console.log(req.user);
+  } else {
+    console.log(req.session);
+    res.render("members-log-in", { title: "Members Only", user: req.user });
+    console.log(req.user);
+  }
 });
 
 // Sign up GET //
@@ -36,5 +45,8 @@ router.post(
     failureRedirect: "/",
   })
 );
+
+// Log out GET //
+router.get("/log-out", membersController.members_only_log_out_get);
 
 module.exports = router;
