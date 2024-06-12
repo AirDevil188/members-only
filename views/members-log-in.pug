@@ -1,0 +1,16 @@
+extends layout 
+
+block content
+
+    section.log-in-form-section 
+        div.form-container
+            form(action="/log-in" method="POST")
+                div.form-group
+                    label(for="username") #[strong Username: ]
+                    input(type="text" id="username", name="username")
+
+                div.form-group
+                    label(for="password") #[strong Password: ]
+                    input(type="password", autocomplete = "on", id= "password", name="password")
+
+                button.btn.btn-primary Submit
