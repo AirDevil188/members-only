@@ -17,6 +17,7 @@ router.get("/", function (req, res, next) {
       user: req.user,
     });
     console.log(req.user);
+    console.log(res.locals.currentUser.member);
   } else {
     console.log(req.session);
     res.render("members-log-in", { title: "Members Only", user: req.user });
@@ -48,5 +49,11 @@ router.post(
 
 // Log out GET //
 router.get("/log-out", membersController.members_only_log_out_get);
+
+// Secret GET //
+router.get("/cats", membersController.members_only_secret_get);
+
+// Secret POST //
+router.post("/cats", membersController.members_only_secret_post);
 
 module.exports = router;
