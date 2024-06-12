@@ -3,6 +3,8 @@ const asyncHandler = require("express-async-handler");
 const User = require("../models/user");
 const bcryptjs = require("bcryptjs");
 const { validationResult, body } = require("express-validator");
+const dotenv = require("dotenv");
+dotenv.config();
 
 exports.members_only_sign_up_get = asyncHandler((req, res, next) => {
   res.render("members-sign-up", {
@@ -16,13 +18,11 @@ exports.members_only_sign_up_post = [
     .isLength({ min: 1 })
     .escape(),
 
-  body("user_password", "Password must not be empty.")
-    .isLength({ min: 1 })
-    .escape(),
+  body("password", "Password must not be empty.").isLength({ min: 1 }).escape(),
 
-  body("user_confirm_password", "Password doesn't match").custom(
+  body("confirm_password", "Password doesn't match").custom(
     (value, { req }) => {
-      return value === req.body.user_password;
+      return value === req.body.password;
     }
   ),
 
@@ -35,7 +35,7 @@ exports.members_only_sign_up_post = [
         errors: errors.array(),
       });
     } else {
-      bcryptjs.hash(req.body.user_password, 10, async (err, hashedPassword) => {
+      bcryptjs.hash(req.body.password, 10, async (err, hashedPassword) => {
         try {
           const user = new User({
             username: req.body.username,
@@ -43,7 +43,7 @@ exports.members_only_sign_up_post = [
             member: false,
           });
           await user.save();
-          res.redirect("/");
+          res.redirect("/log-in");
         } catch {
           return next(err);
         }
@@ -51,3 +51,9 @@ exports.members_only_sign_up_post = [
     }
   }),
 ];
+
+exports.members_only_log_in_get = asyncHandler(async (req, res, next) => {
+  res.render("members-log-in", {
+    title: "Members Only - Log In",
+  });
+});
