@@ -23,13 +23,22 @@ const mongoDb = process.env.MONGODB_URL;
 mongoose.connect(mongoDb);
 const db = mongoose.connection;
 db.on("error", console.error.bind("database connection error"));
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
+/// PASSPORT ///
+
+app.use(logger("dev"));
+app.use(express.json());
+
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(
   session({
-    secret: process.env.SECRET,
+    secret: process.env.SESSION_SECRET,
     store: MongoStore.create({
       mongoUrl: process.env.MONGODB_URL,
       collectionName: "sessions",
@@ -41,17 +50,19 @@ app.use(
     },
   })
 );
+require("./lib/passport");
+
 app.use(passport.session());
 
-app.use(logger("dev"));
-app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  console.log(res.locals.currentUser, "currentUser");
 
+  next();
+});
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
