@@ -57,3 +57,13 @@ exports.members_only_log_in_get = asyncHandler(async (req, res, next) => {
     title: "Members Only - Log In",
   });
 });
+
+exports.members_only_log_out_get = asyncHandler(async (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    } else {
+      res.redirect("/");
+    }
+  });
+});
