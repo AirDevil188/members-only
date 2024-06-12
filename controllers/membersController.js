@@ -67,3 +67,18 @@ exports.members_only_log_out_get = asyncHandler(async (req, res, next) => {
     }
   });
 });
+
+exports.members_only_secret_get = asyncHandler(async (req, res, next) => {
+  res.render("members-secret-page", {
+    title: "Members Only - Secret Club",
+  });
+});
+
+exports.members_only_secret_post = asyncHandler(async (req, res, next) => {
+  if (req.body.secret_code === process.env.SECRET_CODE) {
+    await User.findByIdAndUpdate(res.locals.currentUser, {
+      member: true,
+    });
+    res.redirect("/");
+  }
+});
