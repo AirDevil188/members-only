@@ -7,7 +7,21 @@ const { validationResult, body } = require("express-validator");
 const dotenv = require("dotenv");
 dotenv.config();
 
-exports.members_only_sign_up_get = asyncHandler((req, res, next) => {
+exports.members_only_index = asyncHandler(async (req, res, next) => {
+  const allMessages = await Message.find()
+    .sort({ title: 1 })
+    .populate("user")
+    .exec();
+
+  if (allMessages.length > 0) {
+    res.render("index", {
+      title: "Members Only - Homepage",
+      allMessages: allMessages,
+    });
+  }
+});
+
+exports.members_only_sign_up_get = asyncHandler(async (req, res, next) => {
   res.render("members-sign-up", {
     title: "Members Only - Sign Up",
   });
