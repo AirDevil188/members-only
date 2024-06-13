@@ -1,0 +1,25 @@
+extends layout 
+
+block content 
+
+
+    if currentUser
+        h3 Create new Message
+        div.form-container
+            form(method="POST")
+                div.form-group
+                    label(for="message_title") #[strong Message Title: ]
+                    input(type="text" id="message_title" name="message_title")
+
+                div.form-group
+                    label(for="message_text") #[strong Message Text: ]
+                    textarea(id="message_text" name="message_text")
+
+                button.btn-primary.btn Submit
+
+    else
+        p Please Log In to see this page
+
+    if errors
+        each error in errors
+            p !{error.msg}
