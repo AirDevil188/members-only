@@ -18,6 +18,11 @@ exports.members_only_index = asyncHandler(async (req, res, next) => {
       title: "Members Only - Homepage",
       allMessages: allMessages,
     });
+  } else {
+    res.render("index"),
+      {
+        title: "Members Only - Homepage",
+      };
   }
 });
 
@@ -151,4 +156,17 @@ exports.members_only_admin_post = asyncHandler(async (req, res, next) => {
     });
     res.redirect("/");
   }
+});
+
+exports.members_only_delete_get = asyncHandler(async (req, res, next) => {
+  const message = await Message.findById(req.params.id);
+  console.log("haahahaha");
+
+  if (message === null) {
+    const err = new Error("Message was not found.");
+    err.status = 404;
+    return next(err);
+  }
+  await Message.findByIdAndDelete(req.params.id);
+  res.redirect("/");
 });
