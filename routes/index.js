@@ -6,24 +6,7 @@ const passport = require("passport");
 const user = require("../models/user");
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
-  if (req.session.viewCount) {
-    req.session.viewCount++;
-  } else req.session.viewCount = 1;
-  if (req.user) {
-    // console.log(req.session);
-    res.render("index", {
-      title: "Members Only - Homepage",
-      user: req.user,
-    });
-    // console.log(req.user);
-    // console.log(res.locals.currentUser.member);
-  } else {
-    // console.log(req.session);
-    res.render("members-log-in", { title: "Members Only", user: req.user });
-    // console.log(req.user);
-  }
-});
+router.get("/", membersController.members_only_index);
 
 // Sign up GET //
 
