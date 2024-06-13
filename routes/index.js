@@ -11,17 +11,17 @@ router.get("/", function (req, res, next) {
     req.session.viewCount++;
   } else req.session.viewCount = 1;
   if (req.user) {
-    console.log(req.session);
+    // console.log(req.session);
     res.render("index", {
       title: "Members Only - Homepage",
       user: req.user,
     });
-    console.log(req.user);
-    console.log(res.locals.currentUser.member);
+    // console.log(req.user);
+    // console.log(res.locals.currentUser.member);
   } else {
-    console.log(req.session);
+    // console.log(req.session);
     res.render("members-log-in", { title: "Members Only", user: req.user });
-    console.log(req.user);
+    // console.log(req.user);
   }
 });
 
@@ -55,5 +55,17 @@ router.get("/cats", membersController.members_only_secret_get);
 
 // Secret POST //
 router.post("/cats", membersController.members_only_secret_post);
+
+// Create Message GET //
+router.get(
+  "/create-message",
+  membersController.members_only_create_message_get
+);
+
+// Create Message POST //
+router.post(
+  "/create-message",
+  membersController.members_only_create_message_post
+);
 
 module.exports = router;
