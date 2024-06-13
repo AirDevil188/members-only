@@ -56,6 +56,7 @@ exports.members_only_sign_up_post = [
             username: req.body.username,
             password: hashedPassword,
             member: false,
+            admin: false,
           });
           await user.save();
           res.redirect("/log-in");
@@ -135,3 +136,19 @@ exports.members_only_create_message_post = [
     }
   }),
 ];
+
+exports.members_only_admin_get = asyncHandler(async (req, res, next) => {
+  res.render("admin-log-in", {
+    title: "Members Only - Admin Club",
+  });
+});
+
+exports.members_only_admin_post = asyncHandler(async (req, res, next) => {
+  if (req.body.admin_code === process.env.ADMIN_CODE) {
+    await User.findByIdAndUpdate(res.locals.currentUser, {
+      member: true,
+      admin: true,
+    });
+    res.redirect("/");
+  }
+});

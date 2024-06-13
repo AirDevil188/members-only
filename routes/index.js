@@ -51,4 +51,10 @@ router.post(
   membersController.members_only_create_message_post
 );
 
+// Admin GET //
+router.get("/admin", membersController.members_only_admin_get);
+
+// Admin POST //
+router.post("/admin", membersController.members_only_admin_post);
+
 module.exports = router;

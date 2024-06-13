@@ -20,6 +20,9 @@ block content
                     p !{msg.timestamp}
                   div.message-user-container
                     p !{msg.user.username}
+                
+                if currentUser.admin
+                  a(href="/delete") Delete Post 
 
 
 

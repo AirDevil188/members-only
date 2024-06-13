@@ -1,0 +1,23 @@
+extends layout
+
+block content 
+
+    h3 Wanna become an admin? 
+
+    if currentUser
+        section.secret-form-section
+            div.form-container
+                if currentUser.admin
+                    p You are already an admin please go to the Homepage
+                        a(href="/") Go back to homepage
+                else
+                    form(method="POST")
+                        label(for="admin_code") #[strong Secret Code: ]
+                        input(type="password" autocomplete="on", id="admin_code" name="admin_code")
+
+                        button.btn-primary.btn Proceed
+ 
+
+    else
+        p Please Log in to proceed
+        a(href="/log-in") Log In   
