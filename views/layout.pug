@@ -9,10 +9,13 @@ html
           ul
             li
               a(href="/") Homepage  
-            li
-              if currentUser
+            if currentUser
+              li
+                a(href="/create-message") Create Message
+              li
                 a(href="/log-out") Log-Out
-              else
+            else
+              li 
                 a(href="/log-in") Log-In 
     block content
       
