@@ -51,6 +51,9 @@ router.post(
   membersController.members_only_create_message_post
 );
 
+// Delete Message GET //
+router.get("/message/:id/delete", membersController.members_only_delete_get);
+
 // Admin GET //
 router.get("/admin", membersController.members_only_admin_get);
 
