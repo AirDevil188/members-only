@@ -4,4 +4,22 @@ block content
   h1= title
 
     if currentUser
-      p Welcome back !{user.username}
+      p Welcome back !{currentUser.username}
+
+    if allMessages
+      section.message-section
+        each msg in allMessages
+          div.message-container
+            div.message-title.container
+              strong !{msg.title}
+            div.message-text-container
+              p !{msg.text}
+              if currentUser
+                if currentUser.member
+                  div.message-timestamp-container
+                    p !{msg.timestamp}
+                  div.message-user-container
+                    p !{msg.user.username}
+
+
+
