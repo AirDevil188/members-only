@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/user");
+const Message = require("../models/message");
 const bcryptjs = require("bcryptjs");
 const { validationResult, body } = require("express-validator");
 const dotenv = require("dotenv");
@@ -82,3 +83,41 @@ exports.members_only_secret_post = asyncHandler(async (req, res, next) => {
     res.redirect("/");
   }
 });
+
+exports.members_only_create_message_get = asyncHandler(
+  async (req, res, next) => {
+    res.render("create-new-message", {
+      title: "Members Only - Create New Message",
+    });
+  }
+);
+
+exports.members_only_create_message_post = [
+  body("message_title", "Message Title must not be empty.")
+    .isLength({ min: 1 })
+    .escape(),
+  body("message_text", "Message Text must not be empty.")
+    .isLength({ min: 1 })
+    .escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.render("create-new-message", {
+        title: "Members Only - Create New Message",
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      const message = new Message({
+        title: req.body.message_title,
+        text: req.body.message_text,
+        timestamp: Date.now(),
+        user: await User.findById(res.locals.currentUser.id),
+      });
+      await message.save();
+      res.redirect("/");
+    }
+  }),
+];
