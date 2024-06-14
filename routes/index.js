@@ -4,6 +4,7 @@ const router = express.Router();
 const membersController = require("../controllers/membersController");
 const passport = require("passport");
 const user = require("../models/user");
+const isAuth = require("../controllers/isAuth");
 
 /* GET home page. */
 router.get("/", membersController.members_only_index);
@@ -34,7 +35,7 @@ router.post(
 router.get("/log-out", membersController.members_only_log_out_get);
 
 // Secret GET //
-router.get("/cats", membersController.members_only_secret_get);
+router.get("/cats", isAuth, membersController.members_only_secret_get);
 
 // Secret POST //
 router.post("/cats", membersController.members_only_secret_post);
@@ -42,6 +43,7 @@ router.post("/cats", membersController.members_only_secret_post);
 // Create Message GET //
 router.get(
   "/create-message",
+  isAuth,
   membersController.members_only_create_message_get
 );
 
@@ -55,7 +57,7 @@ router.post(
 router.get("/message/:id/delete", membersController.members_only_delete_get);
 
 // Admin GET //
-router.get("/admin", membersController.members_only_admin_get);
+router.get("/admin", isAuth, membersController.members_only_admin_get);
 
 // Admin POST //
 router.post("/admin", membersController.members_only_admin_post);
