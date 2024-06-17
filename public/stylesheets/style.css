@@ -11,7 +11,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
 
 body {
+  display: flex;
+  flex-flow: column wrap;
   font-family: "Roboto Mono", monospace;
+  height: 100vh;
 }
 
 nav {
@@ -42,12 +45,24 @@ li > a {
   text-decoration: none;
 }
 
+.content-section {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
 .message-section {
+  display: flex;
+  flex-flow: column wrap;
+  align-self: center;
+  border: 1px solid black;
   padding: 2rem;
+  margin: 1rem;
 }
 .message-container {
   display: flex;
   flex-flow: column wrap;
   border: 1px solid black;
   padding: 1rem;
+  margin: 1rem;
 }

@@ -1,13 +1,22 @@
 extends layout
 
 block content
-    if currentUser
-      p Welcome back !{currentUser.username}
 
+
+  if currentUser
     if allMessages
       section.message-section
         each msg in allMessages
           div.message-container
+            div.message-img-container
+              span.material-symbols-outlined person 
+              if currentUser
+                span !{currentUser.member ? msg.user.username : "??????"}
+              else
+                span ??????
+              
+              
+            
             div.message-title.container
               strong !{msg.title}
             div.message-text-container
@@ -16,11 +25,13 @@ block content
                 if currentUser.member
                   div.message-timestamp-container
                     p Timestamp: !{msg.timestamp}
-                  div.message-user-container
-                    p Posted By: !{msg.user.username}
-                
+
                 if currentUser.admin
                   a(href=msg.url+`/delete`) Delete Post 
 
+  else
+  section.content-section
+    div.content-container
+      h3 Please log in first!
 
 
