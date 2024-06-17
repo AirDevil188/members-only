@@ -1,8 +1,6 @@
 extends layout
 
 block content
-  h1= title
-
     if currentUser
       p Welcome back !{currentUser.username}
 
@@ -13,13 +11,13 @@ block content
             div.message-title.container
               strong !{msg.title}
             div.message-text-container
-              p !{msg.text}
+              p Message Text: !{msg.text}
               if currentUser
                 if currentUser.member
                   div.message-timestamp-container
-                    p !{msg.timestamp}
+                    p Timestamp: !{msg.timestamp}
                   div.message-user-container
-                    p !{msg.user.username}
+                    p Posted By: !{msg.user.username}
                 
                 if currentUser.admin
                   a(href=msg.url+`/delete`) Delete Post 

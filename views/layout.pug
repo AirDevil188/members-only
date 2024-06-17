@@ -3,19 +3,31 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+
   body
     header
         nav
           ul
-            li
-              a(href="/") Homepage  
+            if !currentUser
+              div.left-side
+                  li
+                    a(href="/") Homepage
+              div.right-side
+                  li 
+                    a(href="/log-in") Log-In
+                  li 
+                    a(href="/sign-up") Sign Up
             if currentUser
-              li
-                a(href="/create-message") Create Message
-              li
-                a(href="/log-out") Log-Out
-            else
-              li 
-                a(href="/log-in") Log-In 
+              div.left-side
+                  li
+                    a(href="/") Homepage 
+                  li
+                    a(href="/create-message") Create Message
+              div.right-side
+                li Welcome Back !{currentUser.username}
+                li 
+                  a(href="/log-out") Log-Out
+            
+            
     block content
       

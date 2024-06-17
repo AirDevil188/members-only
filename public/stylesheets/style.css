@@ -21,15 +21,33 @@ nav {
 }
 nav ul {
   display: flex;
+  flex-direction: row wrap;
+  justify-content: space-between;
   gap: 10px;
+}
+
+.right-side,
+.left-side {
+  display: flex;
   flex-flow: row wrap;
+  gap: 10px;
 }
 
 ul {
   list-style: none;
 }
 
-a {
+li > a {
   color: #fff;
   text-decoration: none;
+}
+
+.message-section {
+  padding: 2rem;
+}
+.message-container {
+  display: flex;
+  flex-flow: column wrap;
+  border: 1px solid black;
+  padding: 1rem;
 }
