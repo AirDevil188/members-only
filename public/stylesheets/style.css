@@ -8,8 +8,6 @@
   padding: 0;
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
-
 body {
   display: flex;
   flex-flow: column wrap;
@@ -29,6 +27,10 @@ nav ul {
   gap: 10px;
 }
 
+section {
+  max-width: 1200px;
+}
+
 .right-side,
 .left-side {
   display: flex;
@@ -40,7 +42,8 @@ ul {
   list-style: none;
 }
 
-li > a {
+li,
+a {
   color: #fff;
   text-decoration: none;
 }
@@ -65,4 +68,53 @@ li > a {
   border: 1px solid black;
   padding: 1rem;
   margin: 1rem;
+}
+
+.log-in-section,
+.sign-up-section {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-self: center;
+  flex: 1;
+}
+
+.form-container {
+  display: flex;
+  min-width: 320px;
+  max-width: 550px;
+  max-height: 300px;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+form {
+  display: flex;
+  flex-flow: column wrap;
+  flex: 1;
+  text-align: center;
+  align-items: center;
+  gap: 15px;
+}
+
+input {
+  border-radius: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+button {
+  background-color: #000;
+  text-transform: uppercase;
+  padding: 10px;
+  color: #fff;
 }
